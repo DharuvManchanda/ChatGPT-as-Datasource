@@ -1,0 +1,22 @@
+{
+  "mongodb": {
+    "mode": "single",
+    "dbName": "godspeed",
+    "ports": [
+      27017
+    ]
+  },
+  "postgresql": false,
+  "kafka": false,
+  "elasticsearch": false,
+  "redis": false,
+  "servicePort": 3000,
+  "gsNodeServiceVersion": "latest",
+  "projectName": "ChatGPT-as-Datasource",
+  "meta": {
+    "createTimestamp": "2024-11-05T18:33:32.224Z",
+    "lastUpdateTimestamp": "2024-11-05T18:33:32.224Z",
+    "cliVersionWhileCreation": "2.9.2",
+    "cliVersionWhileLastUpdate": "2.9.2"
+  }
+}
