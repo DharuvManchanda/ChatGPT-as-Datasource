@@ -1,0 +1,4 @@
+type: chatgpt
+model: gpt-4o
+temperature: 1
+max_tokens: 200

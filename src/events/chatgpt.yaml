@@ -1,0 +1,23 @@
+http.post./chatgpt:
+  summary: "Generate response from ChatGPT"
+  description: "Endpoint to send a user prompt to ChatGPT and retrieve the AI-generated response."
+  fn: prompt
+  authn: false
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            prompt:
+              type: string
+              description: "The user's prompt or question for ChatGPT to respond to."
+          required:
+            - prompt
+  responses:
+    200:
+      description: "Successful response from ChatGPT"
+      content:
+        application/json:
+          schema:
+            type: string

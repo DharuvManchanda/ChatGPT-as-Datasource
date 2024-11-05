@@ -27,6 +27,10 @@ Ideal for applications that need conversational support, content generation, or 
      ```bash
      npm install
      ```
+   - **Set Up Environment Variables**: Add your OpenAI API key to the environment variables by including the following in your `.env` file:
+     ```plaintext
+     OPENAI_API_KEY="Enter_Your_OpenAI_API_Key"
+     ```
 
 2. **Add ChatGPT Custom Data Source Configuration**:
    - Inside the `src/datasources/` directory, add a `chatgpt.yaml` file with the following configuration:
