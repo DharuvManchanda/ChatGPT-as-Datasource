@@ -11,7 +11,6 @@ protected async initClient(): Promise<object> {
 async execute(ctx: GSContext, args: PlainObject): Promise<any> {
   const client = this.client as OpenAI;
   const { prompt, meta: { fnNameInWorkflow } } = args;
-  logger.info("promppppt %s",prompt);
   // Parse method from fnNameInWorkflow
   let method = fnNameInWorkflow?.split(".")[2];
 

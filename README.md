@@ -70,17 +70,26 @@ http.post./chatgpt:
           schema:
             type: string
 ```
-
-#### ChatGPT Workflow (src/functions/prompt.yaml)
+#### ChatGPT TypeScript Workflow (src/functions/prompt.ts)
 
 ```yaml
 summary: "Get AI-driven response from ChatGPT with configurations from YAML file"
 tasks:
   - id: request_chatgpt
-    fn: datasource.chatgpt.execute
+    fn: datasource.chatgpt.chat
     args:
       prompt: <% inputs.body.prompt %>
 ```
 
-### Thank You for Using Godspeed
+#### ChatGPT YAML Workflow (src/functions/prompt.yaml)
+
+```yaml
+summary: "Get AI-driven response from ChatGPT with configurations from YAML file"
+tasks:
+  - id: request_chatgpt
+    fn: datasource.chatgpt.chat
+    args:
+      prompt: <% inputs.body.prompt %>
+```
+
 This ChatGPT custom data source is here to power your project with cutting-edge conversational AI. Enjoy the possibilities of OpenAI with the flexibility of Godspeed!
