@@ -1,4 +1,4 @@
-import { GSContext,  GSDataSource, GSStatus, PlainObject,} from "@godspeedsystems/core";
+import { GSContext,  GSDataSource, GSStatus, logger, PlainObject,} from "@godspeedsystems/core";
 import OpenAI from 'openai';
 
 export default class DataSource extends GSDataSource {
@@ -9,13 +9,9 @@ protected async initClient(): Promise<object> {
 }
 
 async execute(ctx: GSContext, args: PlainObject): Promise<any> {
-  if (!this.client) {
-    this.client = await this.initClient(); // Ensure client is initialized
-  }
-  
   const client = this.client as OpenAI;
   const { prompt, meta: { fnNameInWorkflow } } = args;
-  
+  logger.info("promppppt %s",prompt);
   // Parse method from fnNameInWorkflow
   let method = fnNameInWorkflow?.split(".")[2];
 
@@ -32,7 +28,7 @@ async execute(ctx: GSContext, args: PlainObject): Promise<any> {
 
     try {
       // execute methods
-      if (method === "execute") {
+      if (method === "create") {
         // Execute ChatGPT completion
         const response = await client.chat.completions.create({
           model,

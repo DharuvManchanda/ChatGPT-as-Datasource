@@ -1,6 +1,7 @@
 summary: "Get AI-driven response from ChatGPT with configurations from YAML file"
 tasks:
   - id: request_chatgpt
-    fn: datasource.chatgpt.execute
+    fn: datasource.chatgpt.create
     args:
       prompt: <% inputs.body.prompt %>
+
