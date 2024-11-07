@@ -19,7 +19,7 @@ export default async function (ctx: GSContext, args: any) {
         //Or meta can contain {fnNameInWorkflow} which is same as 
         //the 'fn' that we write when invoking datasource from yaml workflow
         //For example, this will also work
-        meta: {fnNameInWorkflow: 'datasource.chatgpt.create'}
+        meta: {fnNameInWorkflow: 'datasource.chatgpt.chat'}
     });
     return response;
 }

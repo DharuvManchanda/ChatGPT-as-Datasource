@@ -28,7 +28,7 @@ async execute(ctx: GSContext, args: PlainObject): Promise<any> {
 
     try {
       // execute methods
-      if (method === "create") {
+      if (method === "chat") {
         // Execute ChatGPT completion
         const response = await client.chat.completions.create({
           model,
