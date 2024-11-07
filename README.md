@@ -1,6 +1,6 @@
 
 # godspeed-custom-datasource-chatgpt
-Welcome to the [Godspeed](https://www.godspeed.systems/) ChatGPT Custom Data Source! 🚀
+Welcome to the [Godspeed](https://www.godspeed.systems/) ChatGPT Custom Data Source! 
 
 **Easily integrate OpenAI's ChatGPT within your Godspeed project for dynamic, conversational AI responses.**
 
