@@ -10,9 +10,7 @@ export default async function (ctx: GSContext, args: any) {
    // The code calls ds.execute, passing the ctx and an argument object.
    // The args object passed to execute has two parts:
    // prompt: The input text for the ChatGPT model, extracted from body.
-   // meta: An object with a fnNameInWorkflow property set to 'datasource.chatgpt.chat'. 
-   // This property likely tells the Godspeed framework which function within the chatgpt datasource to execute (chat in this case).
-    const response = await ds.execute(ctx, {
+   const response = await ds.execute(ctx, {
         prompt,
         meta: {method: 'chat'}
     });
