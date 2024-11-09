@@ -1,0 +1,7 @@
+id: chatgpt-text-to-speech
+summary: "Generate speech from text using ChatGPT's TTS"
+tasks:
+  - id: request_tts
+    fn: datasource.chatgpt.textToSpeech
+    args:
+      input: <% inputs.body.input %>

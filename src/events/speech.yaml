@@ -1,0 +1,30 @@
+http.post./chatgpt-text-to-speech:
+  summary: "Generate speech from text using ChatGPT's TTS"
+  description: "Endpoint to send text to ChatGPT's TTS feature and retrieve the generated audio file path."
+  fn: speech
+  authn: false
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            input:
+              type: string
+              description: "The text input for ChatGPT to convert into speech."
+          required:
+            - input
+  responses:
+    200:
+      description: "Successful response with the file path of the generated audio."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Message about the result"
+              filePath:
+                type: string
+                description: "Path to the generated audio file"

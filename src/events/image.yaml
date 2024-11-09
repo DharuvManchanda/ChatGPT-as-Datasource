@@ -1,0 +1,30 @@
+http.post./chatgpt-text-to-image:
+  summary: "Generate an image from text using ChatGPT's DALL-E model"
+  description: "Endpoint to send a text prompt to ChatGPT's DALL-E model and retrieve the generated image URL."
+  fn: image
+  authn: false
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            input:
+              type: string
+              description: "The text prompt for ChatGPT to generate an image from."
+          required:
+            - input
+  responses:
+    200:
+      description: "Successful response with the URL of the generated image."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: "Message about the result"
+              imageUrl:
+                type: string
+                description: "URL of the generated image"

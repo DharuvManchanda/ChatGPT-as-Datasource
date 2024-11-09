@@ -1,0 +1,7 @@
+id: chatgpt-text-to-image
+summary: "Generate an image from text using ChatGPT's DALL-E model"
+tasks:
+  - id: request_image
+    fn: datasource.chatgpt.textToImage
+    args:
+      input: <% inputs.body.input %>
