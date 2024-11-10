@@ -1,4 +1,12 @@
 type: chatgpt
-model: gpt-4o
-temperature: 1
-max_tokens: 200
+methods:
+  chat:
+    model: "gpt-4o"
+    temperature: 0.9
+    max_tokens: 200
+  textToSpeech:
+    model: "tts-1"
+    voice: "alloy" # Experiment with different voices (alloy, echo, fable, onyx, nova, and shimmer)
+  textToImage:
+    model: "dall-e-3" # Creating images from scratch based on a text prompt (DALL·E 3 and DALL·E 2)
+    size: "1792x1024" # Size 1024x1024, 1024x1792 or 1792x1024

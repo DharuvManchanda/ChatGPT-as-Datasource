@@ -5,32 +5,37 @@ import path from "path";
 
 export default class DataSource extends GSDataSource {
   protected async initClient(): Promise<object> {
-    // Initialize the OpenAI client with the API key from environment variables
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    return client;
+       // Initialize the OpenAI client with the API key from environment variables
+       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+       return client;
   }
 
   async execute(ctx: GSContext, args: PlainObject): Promise<any> {
     const client = this.client as OpenAI;
-    const { prompt, meta: { fnNameInWorkflow , method } } = args;
+    const { meta: { fnNameInWorkflow, method } } = args;
+    
+    // Get the method name
+    let workflow = method || fnNameInWorkflow?.split(".")[2];
 
-    // Parse method from fnNameInWorkflow
-    let method1 = method || fnNameInWorkflow?.split(".")[2];
-
-    // Validate that client and method are available
+    // Validate client and method
     if (!client) {
       return new GSStatus(false, 500, "ChatGPT client is not initialized");
     }
-    if (!method1) {
+    if (!workflow) {
       return new GSStatus(false, 400, "Method name is missing in fnNameInWorkflow");
     }
 
-    // Use destructuring with defaults to get config values
-    const { model = "gpt-4o", temperature = 1, max_tokens = 500 } = this.config;
+    // Load global and method-specific configurations from YAML
+    const methodConfig = this.config.methods?.[workflow] || {};
 
     try {
-      switch (method1) {
+      switch (workflow) {
         case "chat": {
+          const { prompt } = args;
+          const model = methodConfig.model || "gpt-4o";
+          const temperature = methodConfig.temperature || 1;
+          const max_tokens = methodConfig.max_tokens || 500;
+
           // Chat completion
           const response = await client.chat.completions.create({
             model,
@@ -43,19 +48,18 @@ export default class DataSource extends GSDataSource {
         }
 
         case "textToSpeech": {
-          // Text-to-speech generation
-          const { input = "Hello, this is a sample speech text!" } = args;
-          
-          // Define the file path to save the output audio file
+          const { input } = args;
+          const model = methodConfig.model || "tts-1";
+          const voice = methodConfig.voice || "alloy";
+
           const speechFile = path.resolve(`./generated_audio_${Date.now()}.mp3`);
 
           const mp3 = await client.audio.speech.create({
-            model: "tts-1",
-            voice: "alloy",
+            model,
+            voice,
             input,
           });
-          
-          // Convert the audio data to a buffer and save to a file
+
           const buffer = Buffer.from(await mp3.arrayBuffer());
           await fs.promises.writeFile(speechFile, buffer);
 
@@ -63,14 +67,15 @@ export default class DataSource extends GSDataSource {
         }
 
         case "textToImage": {
-          // Text-to-image generation
           const { input } = args;
-          
+          const model = methodConfig.model || "dall-e-3";
+          const size = methodConfig.size || "1024x1024";
+
           const response = await client.images.generate({
-            model: "dall-e-3",
+            model,
             prompt: input,
             n: 1,
-            size: "1024x1024",
+            size,
           });
 
           const imageUrl = response.data[0]?.url;
@@ -86,15 +91,18 @@ export default class DataSource extends GSDataSource {
         }
       }
     } catch (error) {
-      throw error;
+     throw error; 
     }
   }
 }
 
 const SourceType = 'DS';
-const Type = "chatgpt"; // Loader type for the plugin
-const CONFIG_FILE_NAME = "chatgpt"; // Configuration file name for the datasource
-const DEFAULT_CONFIG = {};
+const Type = "chatgpt";  // Loader type for the plugin
+const CONFIG_FILE_NAME = "chatgpt";  // Configuration file name for the datasource
+const DEFAULT_CONFIG = {
+  
+};
+
 
 export {
   DataSource,
